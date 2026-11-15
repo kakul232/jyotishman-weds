@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /blessings/{blessingId} {
+      // Allow guests to view blessings and post wishes
+      allow read, create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
+

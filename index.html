@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jyotishman Weds Nitumoni — Groom's Wedding Invitation | Gopal Bazar, Nalbari</title>
+  <meta name="description" content="You are cordially invited by Jyotishman and family to celebrate his wedding with Nitumoni.">
+  
+  <!-- Favicon / Emoji -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+
+  <!-- Google Fonts: Cormorant Garamond, Great Vibes & Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Firebase SDKs (Compat for seamless browser integration) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <!-- External Libraries: QRCodeJS & Canvas Confetti -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="relative bg-[#fffdfb] text-stone-800 antialiased selection:bg-rose-200 selection:text-rose-900">
+
+  <!-- Interactive Rose Petals Fall Canvas -->
+  <canvas id="petal-canvas"></canvas>
+
+  <!-- Floating Romantic Ambient Music Controller -->
+  <audio id="wedding-audio" loop preload="auto">
+    <source src="assets/soft-romantic-piano.wav" type="audio/wav">
+    <source src="assets/wedding-romantic.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <!-- Music Notification Bubble -->
+    <div id="music-tooltip" class="hidden sm:flex items-center gap-2 bg-white/95 border border-rose-200 shadow-lg px-3.5 py-1.5 rounded-full text-xs text-rose-700 animate-gentle-float">
+      <span class="inline-block w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+      <span id="music-status-text" class="font-medium">Play Wedding Music 🎵</span>
+    </div>
+
+    <button id="music-toggle" aria-label="Toggle romantic wedding music" class="music-toggle-btn w-14 h-14 rounded-full bg-white/95 border-2 border-rose-300 flex items-center justify-center text-rose-600 hover:text-rose-700 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
+      <span id="music-icon">
+        <!-- Play Icon -->
+        <svg class="w-6 h-6 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </span>
+    </button>
+  </div>
+
+  <!-- Header Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-30 bg-white/70 backdrop-blur-md border-b border-rose-100/60 py-3.5 px-6 transition-all">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <a href="#hero" class="font-script text-3xl text-rose-700 hover:text-rose-800 transition tracking-wider">J & N</a>
+      <div class="hidden sm:flex items-center space-x-7 text-xs uppercase tracking-widest text-stone-600 font-medium">
+        <a href="#couple" class="hover:text-rose-600 transition">The Couple</a>
+        <a href="#venue" class="hover:text-rose-600 transition">Venue & Map</a>
+        <a href="#rsvp" class="hover:text-rose-600 transition">RSVP</a>
+        <a href="#qr-section" class="px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition">Mobile QR</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. Hero Section -->
+  <header id="hero" class="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden bg-gradient-to-b from-[#fff6f4] via-[#fffbf9] to-[#ffffff]">
+    <!-- Decorative Rose Ring Graphic Background -->
+    <div class="absolute w-[500px] h-[500px] rounded-full border border-rose-200/50 -top-20 -right-20 pointer-events-none animate-gentle-float"></div>
+    <div class="absolute w-[400px] h-[400px] rounded-full border border-rose-200/40 -bottom-20 -left-20 pointer-events-none animate-gentle-float" style="animation-delay: -2.5s;"></div>
+
+    <div class="max-w-3xl mx-auto text-center z-10 fade-on-scroll">
+      <!-- Monogram Emblem -->
+      <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full bg-white border border-rose-200/80 shadow-md animate-romantic-pulse">
+        <span class="font-serif-title text-2xl font-semibold text-rose-700 tracking-tighter">J & N</span>
+      </div>
+
+      <div class="space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-700 font-semibold">Groom's Wedding Invitation</p>
+        <p class="font-serif-title text-base md:text-lg text-stone-600 italic">With blessings of our elders and immense joy, we invite you to the wedding of our son</p>
+        <h1 class="font-serif-title text-5xl md:text-7xl font-light tracking-wide text-stone-800 leading-tight pt-1">
+          Jyotishman <br class="sm:hidden">
+          <span class="font-script text-5xl md:text-7xl text-rose-500 font-normal px-2">weds</span> 
+          Nitumoni
+        </h1>
+        <p class="font-script text-2xl md:text-3xl text-rose-gold pt-2">Seeking your warm presence, love & blessings</p>
+      </div>
+
+      <!-- Wedding Date Badge -->
+      <div class="mt-8 inline-block glass-card rounded-full px-8 py-3 border border-rose-200">
+        <p class="text-xs uppercase tracking-[0.25em] text-stone-700 font-medium">
+          Thursday, March 4, 2027 • Gopal Bazar, Nalbari, Assam
+        </p>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="mt-10 flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider">
+        <a href="#rsvp" class="px-8 py-3.5 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-200 hover:bg-rose-700 hover:shadow-xl transition-all duration-300">
+          RSVP Your Presence
+        </a>
+        <a href="#venue" class="px-8 py-3.5 rounded-full bg-white text-stone-700 border border-stone-200 hover:border-rose-300 hover:text-rose-600 shadow-sm transition-all duration-300">
+          View Venue Map
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="mt-14 animate-bounce">
+        <a href="#countdown-section" aria-label="Scroll down" class="inline-block text-rose-400 hover:text-rose-600">
+          <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Countdown Timer Section -->
+  <section id="countdown-section" class="py-16 px-4 bg-white border-y border-rose-100/80">
+    <div class="max-w-4xl mx-auto text-center fade-on-scroll">
+      <span class="text-xs uppercase tracking-[0.3em] text-rose-600 font-semibold block mb-2">Save Our Date</span>
+      <h2 class="font-serif-title text-3xl md:text-4xl text-stone-800 mb-8">Counting Down to Our Forever</h2>
+
+      <!-- Timer Grid -->
+      <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-xl mx-auto">
+        <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
+          <span id="days" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
+          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Days</span>
+        </div>
+        <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
+          <span id="hours" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
+          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Hours</span>
+        </div>
+        <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
+          <span id="minutes" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
+          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Mins</span>
+        </div>
+        <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
+          <span id="seconds" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
+          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Secs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. The Couple Section (Groom's Side Perspective) -->
+  <section id="couple" class="py-24 px-4 bg-[#fffaf8]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-on-scroll">
+        <span class="font-script text-3xl text-rose-500">The Blessed Union</span>
+        <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">Our Groom & His Bride</h2>
+        <p class="text-stone-500 text-sm mt-2">Inviting you to celebrate Jyotishman's new chapter as he welcomes Nitumoni into his life</p>
+        <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <!-- Groom Card -->
+        <div class="glass-card rounded-3xl p-8 text-center relative border border-rose-200/80 shadow-lg fade-on-scroll ring-2 ring-rose-300/40">
+          <div class="relative w-44 h-44 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-300 shadow-md">
+            <!-- Groom portrait placeholder -->
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Jyotishman - The Groom" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+          </div>
+          <span class="text-xs uppercase tracking-[0.25em] text-rose-600 font-semibold">Our Groom (দৰা)</span>
+          <h3 class="font-serif-title text-3xl text-stone-800 font-semibold mt-1">Jyotishman</h3>
+          <p class="text-stone-600 text-sm mt-3 leading-relaxed font-light">
+            "With great joy and humility, I invite all our revered family members, mentors, and dear friends to be part of our wedding celebrations and shower us with your blessings."
+          </p>
+        </div>
+
+        <!-- Bride Card -->
+        <div class="glass-card rounded-3xl p-8 text-center relative border border-rose-200/80 shadow-lg fade-on-scroll">
+          <div class="relative w-44 h-44 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-200/80 shadow-md">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="Nitumoni - The Bride" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+          </div>
+          <span class="text-xs uppercase tracking-[0.25em] text-rose-600 font-semibold">The Bride (কইনা)</span>
+          <h3 class="font-serif-title text-3xl text-stone-800 font-semibold mt-1">Nitumoni</h3>
+          <p class="text-stone-600 text-sm mt-3 leading-relaxed font-light">
+            "Daughter of a cherished family, stepping into our hearts and home as we begin this sacred lifelong voyage together."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Venue & Google Maps Section -->
+  <section id="venue" class="py-24 px-4 bg-[#fff9f8]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-14 fade-on-scroll">
+        <span class="font-script text-3xl text-rose-500">Destination</span>
+        <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">The Wedding Venue</h2>
+        <p class="text-stone-500 text-sm mt-2">We look forward to welcoming you at our royal venue</p>
+        <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+        <!-- Venue Details Card -->
+        <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border-rose-200/90 shadow-md fade-on-scroll">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <span class="text-xs uppercase tracking-widest text-rose-600 font-semibold">Location</span>
+            <h3 class="font-serif-title text-3xl text-stone-800 font-semibold mt-1">Wedding Venue</h3>
+            <p class="text-stone-600 text-sm mt-3 leading-relaxed">
+              Gopal Bazar, Nalbari, Assam 781353
+            </p>
+
+            <div class="mt-6 pt-6 border-t border-rose-100 text-xs space-y-2 text-stone-500">
+              <p>🚗 <strong>Parking:</strong> Guest parking available at the venue</p>
+              <p>🚆 <strong>Nearest Station:</strong> Nalbari Railway Station (~5 mins)</p>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-4">
+            <!-- Google Maps Direct Navigate Link -->
+            <a href="https://www.google.com/maps/search/?api=1&query=Gopal+Bazar+Nalbari+Assam" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-rose-600 text-white font-medium text-xs uppercase tracking-wider shadow-md hover:bg-rose-700 transition">
+              <span>Open in Google Maps</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Embedded Interactive Google Map -->
+        <div class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg border border-rose-200 min-h-[380px] fade-on-scroll">
+          <iframe 
+            src="https://maps.google.com/maps?q=Gopal%20Bazar,%20Nalbari,%20Assam&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            width="100%" 
+            height="100%" 
+            style="border:0; min-height: 400px;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Wedding Venue Google Maps Location">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Interactive RSVP & Guest Wishes Section -->
+  <section id="rsvp" class="py-24 px-4 bg-gradient-to-b from-[#fffbf9] to-[#fff4f2]">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-14 fade-on-scroll">
+        <span class="font-script text-3xl text-rose-500">Cordially Inviting You</span>
+        <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">RSVP to the Groom's Family</h2>
+        <p class="text-stone-500 text-sm mt-2">Kindly grace the auspicious occasion with your presence and blessings</p>
+        <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-10 items-start">
+        <!-- RSVP Form Card -->
+        <div class="glass-card rounded-3xl p-8 border-rose-200 shadow-xl fade-on-scroll">
+          <form id="rsvp-form" class="space-y-5">
+            <div>
+              <label for="rsvp-name" class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Your Full Name *</label>
+              <input type="text" id="rsvp-name" required placeholder="e.g. Dr. Priyabrat & Family" class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90">
+            </div>
+
+            <!-- Attendance Choice -->
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-2">Will you attend? *</label>
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <label class="flex items-center justify-center p-3 rounded-xl border border-rose-200 bg-white/80 cursor-pointer hover:bg-rose-50 transition">
+                  <input type="radio" name="attendance" value="Yes" checked class="text-rose-600 focus:ring-rose-400 mr-2">
+                  <span class="font-medium text-stone-700">Joyfully Accepts</span>
+                </label>
+                <label class="flex items-center justify-center p-3 rounded-xl border border-rose-200 bg-white/80 cursor-pointer hover:bg-rose-50 transition">
+                  <input type="radio" name="attendance" value="No" class="text-rose-600 focus:ring-rose-400 mr-2">
+                  <span class="font-medium text-stone-700">Regretfully Declines</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Message / Wishes -->
+            <div>
+              <label for="rsvp-message" class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Warm Wishes for the Couple</label>
+              <textarea id="rsvp-message" rows="3" placeholder="Write your heartfelt congratulations..." class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-full bg-rose-600 text-white font-semibold text-xs uppercase tracking-widest hover:bg-rose-700 shadow-lg shadow-rose-200 transition-all duration-300">
+              Confirm RSVP & Send Wishes
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Blessings Guestbook Wall -->
+        <div class="space-y-4 fade-on-scroll">
+          <div class="flex items-center justify-between pb-2 border-b border-rose-200">
+            <h3 class="font-serif-title text-2xl text-stone-800 font-semibold">Guestbook Blessings</h3>
+            <span class="text-xs text-rose-600 font-semibold uppercase tracking-wider">Recent Wishes</span>
+          </div>
+
+          <div id="wishes-container" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+            <!-- Wishes injected via app.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. QR Code for Mobile Guests & Calendar Sync (Placed at End Before Footer) -->
+  <section id="qr-section" class="py-20 px-4 bg-white border-y border-rose-100">
+    <div class="max-w-3xl mx-auto text-center fade-on-scroll">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 border border-rose-200 text-rose-600 mb-4">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+        </svg>
+      </div>
+
+      <span class="text-xs uppercase tracking-[0.28em] text-rose-600 font-semibold block">Mobile Friendly Invitation</span>
+      <h2 class="font-serif-title text-3xl md:text-4xl text-stone-800 mt-1 mb-3">Scan to Open on Mobile</h2>
+      <p class="text-stone-600 text-sm max-w-md mx-auto mb-8 font-light">
+        Point your phone camera to this QR code to instantly view this invitation on your device, get directions, and save the date!
+      </p>
+
+      <!-- QR Display Container -->
+      <div class="inline-block qr-frame p-6 mb-8">
+        <div id="qrcode" class="flex justify-center items-center"></div>
+        <p class="text-[11px] text-stone-500 mt-3 font-medium tracking-wide">Scan with any smartphone camera</p>
+      </div>
+
+      <!-- Add to Calendar Button -->
+      <div>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jyotishman+%26+Nitumoni's+Wedding&dates=20270304T053000Z/20270304T173000Z&details=Celebrating+the+wedding+of+Jyotishman+and+Nitumoni!&location=Gopal+Bazar,+Nalbari,+Assam" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold uppercase tracking-wider hover:bg-rose-100 transition shadow-sm">
+          <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span>Add to Google Calendar</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP Confirmation Success Modal -->
+  <div id="rsvp-success" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-rose-100">
+      <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4 text-3xl">
+        🎉
+      </div>
+      <h3 class="font-serif-title text-3xl text-stone-800 font-semibold">Thank You!</h3>
+      <p class="text-stone-600 text-sm mt-2 font-light">
+        Your RSVP and lovely wishes have been received with deep love & gratitude. We cannot wait to celebrate with you!
+      </p>
+      <button onclick="closeSuccessModal()" class="mt-6 px-8 py-2.5 rounded-full bg-rose-600 text-white text-xs uppercase font-semibold tracking-wider hover:bg-rose-700 transition">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- 8. Footer -->
+  <footer class="py-16 px-4 bg-white text-center border-t border-rose-100">
+    <div class="max-w-xl mx-auto space-y-4">
+      <div class="font-script text-4xl text-rose-600">Jyotishman & Nitumoni</div>
+      <p class="font-serif-title text-lg text-stone-700 italic">"Love does not consist in gazing at each other, but in looking outward together in the same direction."</p>
+      <p class="text-[11px] uppercase tracking-widest text-stone-400 pt-4">#JyotishmanWedsNitumoni • 2027</p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
+
