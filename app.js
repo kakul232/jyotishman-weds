@@ -191,9 +191,11 @@ function initRSVP() {
     `).join('');
   }
 
-  // Load initial wishes from blessings.json if localStorage is empty
-  if (savedWishes.length === 0) {
-    fetch('blessings.json')
+  // Load blessings from Google Sheet API if available, else blessings.json
+  const sheetApiUrl = window.GOOGLE_SHEET_API_URL || '';
+
+  if (sheetApiUrl) {
+    fetch(sheetApiUrl)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
@@ -203,15 +205,33 @@ function initRSVP() {
         }
       })
       .catch(() => {
-        // Fallback default
-        savedWishes = [
-          { name: 'Parag & Nilakshi', message: 'Jyotishman aru Nitumoniloi biyar xubhesa thakil! Always stay blessed! 💕🌸', time: 'Just now' },
-          { name: 'Bhaskar Jyoti & Family', message: 'A lifetime of happiness, harmony and endless love together! ✨🥂', time: '1 hr ago' }
-        ];
-        renderWishes(savedWishes);
+        loadLocalBlessings();
       });
   } else {
-    renderWishes(savedWishes);
+    loadLocalBlessings();
+  }
+
+  function loadLocalBlessings() {
+    if (savedWishes.length === 0) {
+      fetch('blessings.json')
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) {
+            savedWishes = data;
+            localStorage.setItem('wedding_wishes', JSON.stringify(savedWishes));
+            renderWishes(savedWishes);
+          }
+        })
+        .catch(() => {
+          savedWishes = [
+            { name: 'Parag & Nilakshi', message: 'Jyotishman aru Nitumoniloi biyar xubhesa thakil! Always stay blessed! 💕🌸', time: 'Just now' },
+            { name: 'Bhaskar Jyoti & Family', message: 'A lifetime of happiness, harmony and endless love together! ✨🥂', time: '1 hr ago' }
+          ];
+          renderWishes(savedWishes);
+        });
+    } else {
+      renderWishes(savedWishes);
+    }
   }
 
   // Export / Download blessings as blessings.json file
@@ -325,6 +345,16 @@ function initRSVP() {
         date: new Date().toISOString().split('T')[0],
         time: 'Just now'
       };
+
+      // Send to Google Sheet if API URL configured
+      if (sheetApiUrl) {
+        fetch(sheetApiUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, message: finalMessage })
+        }).catch(err => console.log('Sheet post error:', err));
+      }
 
       // Update local list & localStorage
       savedWishes.unshift(newWish);
