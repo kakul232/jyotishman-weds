@@ -1,7 +1,7 @@
 /**
  * Google Sheet Live Blessings Endpoint Configuration
  * 
- * When you deploy your Google Apps Script (from GoogleAppsScript.gs),
- * paste your generated Web App URL here!
+ * Connected to Jyotishman Weds Blessings Google Sheet via Google Apps Script
  */
-window.GOOGLE_SHEET_API_URL = ""; 
+window.GOOGLE_SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzrBkny4ai7tk2wdg0hgDJSeoqqa4raCpHpcxQmFjNLtfBZBiycm4k0aSC3M2JB7p0j/exec";
+ 
