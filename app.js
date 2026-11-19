@@ -234,6 +234,7 @@ function initRSVP() {
   const msgCounter = document.getElementById('msg-counter');
   const cooldownBanner = document.getElementById('rate-limit-banner');
   const cooldownTimer = document.getElementById('cooldown-timer');
+  const honeypotEl = document.getElementById('honeypot_website');
 
   if (nameInput && nameCounter) {
     nameInput.addEventListener('input', () => {
