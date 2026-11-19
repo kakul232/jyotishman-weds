@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jyotishman Weds Nitumoni — Groom's Wedding Invitation | Gopal Bazar, Nalbari</title>
-  <meta name="description" content="You are cordially invited by Jyotishman and family to celebrate his wedding with Nitumoni.">
-  
+  <title>Jyotishman Weds Nitumoni — Wedding Invitation | Gopal Bazar, Nalbari</title>
+  <meta name="description"
+    content="You are cordially invited by Jyotishman and family to celebrate his wedding with Nitumoni.">
+
   <!-- Favicon / Emoji -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
 
   <!-- Google Fonts: Cormorant Garamond, Great Vibes & Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -27,52 +32,65 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body class="relative bg-[#fffdfb] text-stone-800 antialiased selection:bg-rose-200 selection:text-rose-900">
 
   <!-- Interactive Rose Petals Fall Canvas -->
   <canvas id="petal-canvas"></canvas>
 
-  <!-- Floating Romantic Ambient Music Controller -->
+  <!-- Floating Assamese Wedding Music Controller -->
   <audio id="wedding-audio" loop preload="auto">
-    <source src="assets/soft-romantic-piano.wav" type="audio/wav">
-    <source src="assets/wedding-romantic.mp3" type="audio/mpeg">
+    <source
+      src="assets/songs/%E0%A6%89%E0%A7%B0%E0%A7%81%E0%A6%B2%E0%A7%80%E0%A7%B0_%E0%A6%AE%E0%A6%82%E0%A6%97%E0%A6%B2_%E0%A6%A7%E0%A7%8D%E0%A6%AC%E0%A6%A8%E0%A6%BF.mp3"
+      type="audio/mpeg">
+    <source src="assets/songs/উৰুলীৰ_মংগল_ধ্বনি.mp3" type="audio/mpeg">
   </audio>
 
   <div class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-2 sm:gap-3">
     <!-- Music Notification Bubble -->
-    <div id="music-tooltip" class="hidden sm:flex items-center gap-2 bg-white/95 border border-rose-200 shadow-lg px-3.5 py-1.5 rounded-full text-xs text-rose-700 animate-gentle-float">
+    <div id="music-tooltip"
+      class="hidden sm:flex items-center gap-2 bg-white/95 border border-rose-200 shadow-lg px-3.5 py-1.5 rounded-full text-xs text-rose-700 animate-gentle-float">
       <span class="inline-block w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
       <span id="music-status-text" class="font-medium">Play Wedding Music 🎵</span>
     </div>
 
-    <button id="music-toggle" aria-label="Toggle romantic wedding music" class="music-toggle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 border-2 border-rose-300 flex items-center justify-center text-rose-600 hover:text-rose-700 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
+    <button id="music-toggle" aria-label="Toggle romantic wedding music"
+      class="music-toggle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 border-2 border-rose-300 flex items-center justify-center text-rose-600 hover:text-rose-700 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
       <span id="music-icon">
         <!-- Play Icon -->
         <svg class="w-6 h-6 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </span>
     </button>
   </div>
 
   <!-- Header Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-md border-b border-rose-100/70 py-3 px-4 sm:px-6 transition-all">
+  <nav
+    class="fixed top-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-md border-b border-rose-100/70 py-3 px-4 sm:px-6 transition-all">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="#hero" class="font-script text-2xl sm:text-3xl text-rose-700 hover:text-rose-800 transition tracking-wider">J &amp; N</a>
-      
+      <a href="#hero"
+        class="font-script text-2xl sm:text-3xl text-rose-700 hover:text-rose-800 transition tracking-wider">J &amp;
+        N</a>
+
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-widest text-stone-600 font-medium">
         <a href="#couple" class="hover:text-rose-600 transition">The Couple</a>
         <a href="#family" class="hover:text-rose-600 transition">Family &amp; Invitation</a>
         <a href="#venue" class="hover:text-rose-600 transition">Venue &amp; Map</a>
         <a href="#rsvp" class="hover:text-rose-600 transition">Send Blessings</a>
-        <a href="#qr-section" class="px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition">Save the Date</a>
+        <a href="#qr-section"
+          class="px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition">Save
+          the Date</a>
       </div>
 
       <!-- Mobile Top Quick Action -->
       <div class="flex md:hidden items-center gap-2">
-        <a href="#venue" class="px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-medium border border-stone-200">
+        <a href="#venue"
+          class="px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-medium border border-stone-200">
           📍 Map
         </a>
         <a href="#rsvp" class="px-3 py-1 rounded-full bg-rose-600 text-white text-[11px] font-semibold shadow-sm">
@@ -83,14 +101,20 @@
   </nav>
 
   <!-- 1. Hero Section -->
-  <header id="hero" class="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden bg-gradient-to-b from-[#fff6f4] via-[#fffbf9] to-[#ffffff]">
+  <header id="hero"
+    class="relative min-h-screen flex items-center justify-center pt-20 pb-16 px-4 overflow-hidden bg-gradient-to-b from-[#fff6f4] via-[#fffbf9] to-[#ffffff]">
     <!-- Decorative Rose Ring Graphic Background -->
-    <div class="absolute w-[500px] h-[500px] rounded-full border border-rose-200/50 -top-20 -right-20 pointer-events-none animate-gentle-float"></div>
-    <div class="absolute w-[400px] h-[400px] rounded-full border border-rose-200/40 -bottom-20 -left-20 pointer-events-none animate-gentle-float" style="animation-delay: -2.5s;"></div>
+    <div
+      class="absolute w-[500px] h-[500px] rounded-full border border-rose-200/50 -top-20 -right-20 pointer-events-none animate-gentle-float">
+    </div>
+    <div
+      class="absolute w-[400px] h-[400px] rounded-full border border-rose-200/40 -bottom-20 -left-20 pointer-events-none animate-gentle-float"
+      style="animation-delay: -2.5s;"></div>
 
     <div class="max-w-3xl mx-auto text-center z-10 fade-on-scroll">
       <!-- Monogram Emblem -->
-      <div class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full bg-white border border-rose-200/80 shadow-md animate-romantic-pulse">
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 mb-6 rounded-full bg-white border border-rose-200/80 shadow-md animate-romantic-pulse">
         <span class="font-serif-title text-2xl font-semibold text-rose-700 tracking-tighter">J & N</span>
       </div>
 
@@ -98,22 +122,26 @@
         <div class="font-serif-title text-base sm:text-lg text-rose-700 font-semibold tracking-wide">
           ॥ শ্রীশ্রী প্ৰজাপতয়ে নমঃ ॥
         </div>
-        <p class="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-stone-500 font-semibold">Groom's Wedding Invitation</p>
-        <h1 class="font-serif-title text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-stone-800 leading-tight pt-1">
+        <h1
+          class="font-serif-title text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-stone-800 leading-tight pt-1">
           Jyotishman <br class="sm:hidden">
-          <span class="font-script text-4xl sm:text-6xl md:text-7xl text-rose-500 font-normal px-2">weds</span> 
+          <span class="font-script text-4xl sm:text-6xl md:text-7xl text-rose-500 font-normal px-2">weds</span>
           Nitumoni
         </h1>
         <p class="font-serif-title text-sm sm:text-base text-stone-600">
           শ্ৰী জ্যোতিস্মান শৰ্মা (বুবা) &amp; শ্ৰীনিতুমণি শৰ্মা (জান)
         </p>
-        <p class="font-script text-xl sm:text-2xl md:text-3xl text-rose-gold pt-1 sm:pt-2">Seeking your warm presence, love &amp; blessings</p>
+        <p class="font-script text-xl sm:text-2xl md:text-3xl text-rose-gold pt-1 sm:pt-2">Seeking your warm presence,
+          love &amp; blessings</p>
       </div>
 
       <!-- Wedding Date Badge -->
-      <div class="mt-6 sm:mt-8 inline-block glass-card rounded-2xl sm:rounded-full px-5 sm:px-8 py-3 sm:py-3.5 border border-rose-200 max-w-full">
-        <p class="text-[11px] sm:text-xs md:text-sm uppercase tracking-wide sm:tracking-[0.18em] text-stone-700 font-medium">
-          ১৯ ফাগুণ (ইং ৪ মাৰ্চ, ২০২৭) বৃহস্পতিবাৰ <span class="hidden sm:inline">•</span> <br class="sm:hidden"> Thursday, March 4, 2027
+      <div
+        class="mt-6 sm:mt-8 inline-block glass-card rounded-2xl sm:rounded-full px-5 sm:px-8 py-3 sm:py-3.5 border border-rose-200 max-w-full">
+        <p
+          class="text-[11px] sm:text-xs md:text-sm uppercase tracking-wide sm:tracking-[0.18em] text-stone-700 font-medium">
+          ১৯ ফাগুণ (ইং ৪ মাৰ্চ, ২০২৭) বৃহস্পতিবাৰ <span class="hidden sm:inline">•</span> <br class="sm:hidden">
+          Thursday, March 4, 2027
         </p>
         <p class="text-[10px] sm:text-[11px] text-rose-600 tracking-wider mt-1">
           খাবজাৰা গছৰতল চ'ক, গোপাল বজাৰ, জিলাঃ নলবাৰী (অসম)
@@ -121,11 +149,14 @@
       </div>
 
       <!-- Quick Action Buttons -->
-      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 text-xs font-semibold uppercase tracking-wider w-full max-w-xs sm:max-w-none mx-auto">
-        <a href="#rsvp" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-200 hover:bg-rose-700 hover:shadow-xl transition-all duration-300">
+      <div
+        class="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 text-xs font-semibold uppercase tracking-wider w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="#rsvp"
+          class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-200 hover:bg-rose-700 hover:shadow-xl transition-all duration-300">
           Send Your Blessings
         </a>
-        <a href="#venue" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-white text-stone-700 border border-stone-200 hover:border-rose-300 hover:text-rose-600 shadow-sm transition-all duration-300">
+        <a href="#venue"
+          class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-white text-stone-700 border border-stone-200 hover:border-rose-300 hover:text-rose-600 shadow-sm transition-all duration-300">
           View Venue Map
         </a>
       </div>
@@ -134,7 +165,7 @@
       <div class="mt-14 animate-bounce">
         <a href="#countdown-section" aria-label="Scroll down" class="inline-block text-rose-400 hover:text-rose-600">
           <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </a>
       </div>
@@ -151,20 +182,36 @@
       <div class="grid grid-cols-4 gap-3 md:gap-6 max-w-xl mx-auto">
         <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
           <span id="days" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
-          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Days</span>
+          <span
+            class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Days</span>
         </div>
         <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
           <span id="hours" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
-          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Hours</span>
+          <span
+            class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Hours</span>
         </div>
         <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
           <span id="minutes" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
-          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Mins</span>
+          <span
+            class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Mins</span>
         </div>
         <div class="glass-card rounded-2xl p-4 md:p-6 text-center border-rose-100">
           <span id="seconds" class="font-serif-title text-3xl md:text-5xl font-semibold text-rose-700 block">00</span>
-          <span class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Secs</span>
+          <span
+            class="text-[10px] md:text-xs uppercase tracking-wider text-stone-500 font-medium mt-1 block">Secs</span>
         </div>
+      </div>
+
+      <!-- Save The Date Action Button in Countdown Section -->
+      <div class="mt-8">
+        <a href="save-the-date.ics" download="jyotishman-nitumoni-wedding.ics"
+          class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-rose-600 text-white text-xs font-semibold uppercase tracking-wider hover:bg-rose-700 transition shadow-lg shadow-rose-200">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>Save The Date</span>
+        </a>
       </div>
     </div>
   </section>
@@ -175,33 +222,42 @@
       <div class="text-center mb-16 fade-on-scroll">
         <span class="font-script text-3xl text-rose-500">The Blessed Union</span>
         <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">Our Groom & His Bride</h2>
-        <p class="text-stone-500 text-sm mt-2">Inviting you to celebrate Jyotishman's new chapter as he welcomes Nitumoni into his life</p>
+        <p class="text-stone-500 text-sm mt-2">Inviting you to celebrate Jyotishman's new chapter as he welcomes
+          Nitumoni into his life</p>
         <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
       </div>
 
       <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
         <!-- Groom Card -->
-        <div class="glass-card rounded-3xl p-8 text-center relative border border-rose-200/80 shadow-lg fade-on-scroll ring-2 ring-rose-300/40">
+        <div
+          class="glass-card rounded-3xl p-8 text-center relative border border-rose-200/80 shadow-lg fade-on-scroll ring-2 ring-rose-300/40">
           <div class="relative w-44 h-44 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-300 shadow-md">
             <!-- Groom portrait placeholder -->
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Jyotishman Sharma - The Groom" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop"
+              alt="Jyotishman Sharma - The Groom"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
           </div>
           <span class="text-xs uppercase tracking-[0.25em] text-rose-600 font-semibold">Our Groom (দৰা)</span>
           <h3 class="font-serif-title text-3xl text-stone-800 font-semibold mt-1">শ্ৰী জ্যোতিস্মান শৰ্মা (বুবা)</h3>
           <p class="text-stone-600 text-sm mt-3 leading-relaxed font-light">
-            "With immense joy and gratitude, we warmly welcome all our dear family, friends, and well-wishers to grace this sacred union with your blessings."
+            "With immense joy and gratitude, we warmly welcome all our dear family, friends, and well-wishers to grace
+            this sacred union with your blessings."
           </p>
         </div>
 
         <!-- Bride Card -->
         <div class="glass-card rounded-3xl p-8 text-center relative border border-rose-200/80 shadow-lg fade-on-scroll">
-          <div class="relative w-44 h-44 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-200/80 shadow-md">
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop" alt="Nitumoni Sharma - The Bride" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+          <div
+            class="relative w-44 h-44 mx-auto mb-6 rounded-full overflow-hidden border-4 border-rose-200/80 shadow-md">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop"
+              alt="Nitumoni Sharma - The Bride"
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
           </div>
           <span class="text-xs uppercase tracking-[0.25em] text-rose-600 font-semibold">The Bride (কইনা)</span>
           <h3 class="font-serif-title text-3xl text-stone-800 font-semibold mt-1">শ্ৰীনিতুমণি শৰ্মা (জান)</h3>
           <p class="text-stone-600 text-sm mt-3 leading-relaxed font-light">
-            Daughter of Sri Suresh Sharma &amp; Smt. Nirmali Sharma (Hajo), stepping into our hearts and family as we embark on this sacred journey.
+            Daughter of Sri Suresh Sharma &amp; Smt. Nirmali Sharma (Hajo), stepping into our hearts and family as we
+            embark on this sacred journey.
           </p>
         </div>
       </div>
@@ -213,30 +269,37 @@
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-12 fade-on-scroll">
         <span class="font-serif-title text-xl text-rose-600 block mb-1">॥ শ্রীশ্রী প্ৰজাপতয়ে নমঃ ॥</span>
-        <span class="font-script text-3xl text-rose-500">Invitation from Family</span>
         <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">বিনয়াবনত পৰিয়ালবৰ্গ</h2>
         <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
       </div>
 
       <!-- Formal Letter Style Card -->
-      <div class="glass-card rounded-3xl p-8 md:p-12 border border-rose-200/90 shadow-xl fade-on-scroll relative overflow-hidden">
+      <div
+        class="glass-card rounded-3xl p-8 md:p-12 border border-rose-200/90 shadow-xl fade-on-scroll relative overflow-hidden bg-white/85">
         <div class="absolute -top-12 -right-12 w-36 h-36 bg-rose-100/50 rounded-full pointer-events-none"></div>
 
         <!-- Invitation Prose in Assamese -->
-        <div class="text-stone-700 text-sm md:text-base leading-relaxed space-y-4 font-light text-justify border-b border-rose-100 pb-8">
+        <div
+          class="text-stone-700 text-sm md:text-base leading-relaxed space-y-4 font-light text-justify border-b border-rose-100 pb-8">
           <p class="font-medium text-stone-800">সবিনয় নিবেদন,</p>
           <p>
-            অহা <strong class="text-rose-800 font-semibold">১৯ ফাগুণ মাহৰ ১৯ তাৰিখ (ইং ৪ মাৰ্চ, ২০২৭) বৃহস্পতিবাৰে</strong> আমাৰ কনিষ্ঠ নাতি / ল'ৰা / ভতিজা / ভাইটি / দাদা <strong class="text-rose-800 font-semibold">শ্ৰী জ্যোতিস্মান শৰ্মা (বুবা)</strong>ৰ হাজো নিবাসী শ্ৰীযুত সুৰেশ শৰ্মা আৰু শ্ৰীযুতা নিৰ্মালী শৰ্মাৰ জ্যেষ্ঠা কন্যা <strong class="text-rose-800 font-semibold">শ্ৰীনিতুমণি শৰ্মা (জান)</strong>ৰ লগত শুভ-বিবাহৰ দিন ধাৰ্য্য কৰা হৈছে।
+            অহা <strong class="text-rose-800 font-semibold">১৯ ফাগুণ মাহৰ ১৯ তাৰিখ (ইং ৪ মাৰ্চ, ২০২৭)
+              বৃহস্পতিবাৰে</strong> আমাৰ কনিষ্ঠ নাতি / ল'ৰা / ভতিজা / ভাইটি / দাদা <strong
+              class="text-rose-800 font-semibold">শ্ৰী জ্যোতিস্মান শৰ্মা (বুবা)</strong>ৰ হাজো নিবাসী শ্ৰীযুত সুৰেশ
+            শৰ্মা আৰু শ্ৰীযুতা নিৰ্মালী শৰ্মাৰ জ্যেষ্ঠা কন্যা <strong class="text-rose-800 font-semibold">শ্ৰীনিতুমণি
+              শৰ্মা (জান)</strong>ৰ লগত শুভ-বিবাহৰ দিন ধাৰ্য্য কৰা হৈছে।
           </p>
           <p>
-            তদুপলক্ষে আপোনাক / আপোনালোকক স-পৰিয়ালে সাদৰেৰে নিমন্ত্ৰণী শৰাই আগবঢ়ালোঁ। উক্তদিনা বিবাহস্থলীত উপস্থিত থাকি দৰাক আশীৰ্বাদ দিয়াৰ লগতে আমাকো কৃতাৰ্থ কৰিব বুলি আশা কৰিলোঁ।
+            তদুপলক্ষে আপোনাক / আপোনালোকক স-পৰিয়ালে সাদৰেৰে নিমন্ত্ৰণী শৰাই আগবঢ়ালোঁ। উক্তদিনা বিবাহস্থলীত উপস্থিত থাকি
+            দৰাক আশীৰ্বাদ দিয়াৰ লগতে আমাকো কৃতাৰ্থ কৰিব বুলি আশা কৰিলোঁ।
           </p>
         </div>
 
         <!-- Family Members List (বিনয়াবনত) -->
         <div class="mt-8">
           <div class="text-center mb-6">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 font-semibold text-xs tracking-wider uppercase">
+            <span
+              class="inline-block px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-800 font-semibold text-xs tracking-wider uppercase">
               বিনয়াবনত
             </span>
             <p class="font-serif-title text-2xl font-bold text-rose-800 mt-3">শ্ৰীভাৰতী প্ৰীয়া দেৱী (আইতা)</p>
@@ -322,12 +385,16 @@
 
       <div class="grid lg:grid-cols-3 gap-8 items-stretch">
         <!-- Venue Details Card -->
-        <div class="glass-card rounded-3xl p-8 flex flex-col justify-between border-rose-200/90 shadow-md fade-on-scroll">
+        <div
+          class="glass-card rounded-3xl p-8 flex flex-col justify-between border-rose-200/90 shadow-md fade-on-scroll">
           <div>
-            <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mb-6">
+            <div
+              class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mb-6">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
             <span class="text-xs uppercase tracking-widest text-rose-600 font-semibold">বিবাহস্থলী / Venue</span>
@@ -360,26 +427,23 @@
 
           <div class="mt-8 pt-4">
             <!-- Google Maps Direct Navigate Link -->
-            <a href="https://maps.app.goo.gl/zswNjEAvXApxss8F6" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-rose-600 text-white font-medium text-xs uppercase tracking-wider shadow-md hover:bg-rose-700 transition">
+            <a href="https://maps.app.goo.gl/zswNjEAvXApxss8F6" target="_blank" rel="noopener noreferrer"
+              class="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-rose-600 text-white font-medium text-xs uppercase tracking-wider shadow-md hover:bg-rose-700 transition">
               <span>Open in Google Maps</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
           </div>
         </div>
 
         <!-- Embedded Interactive Google Map -->
-        <div class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg border border-rose-200 min-h-[380px] fade-on-scroll">
-          <iframe 
-            src="https://maps.google.com/maps?q=26.433789,91.4251556&hl=en&z=17&output=embed" 
-            width="100%" 
-            height="100%" 
-            style="border:0; min-height: 400px;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Wedding Venue Google Maps Location">
+        <div
+          class="lg:col-span-2 rounded-3xl overflow-hidden shadow-lg border border-rose-200 min-h-[380px] fade-on-scroll">
+          <iframe src="https://maps.google.com/maps?q=26.433789,91.4251556&hl=en&z=17&output=embed" width="100%"
+            height="100%" style="border:0; min-height: 400px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Wedding Venue Google Maps Location">
           </iframe>
         </div>
       </div>
@@ -392,7 +456,8 @@
       <div class="text-center mb-14 fade-on-scroll">
         <span class="font-script text-3xl text-rose-500">Love & Blessings</span>
         <h2 class="font-serif-title text-4xl md:text-5xl text-stone-800 mt-1">Bless The Couple</h2>
-        <p class="text-stone-500 text-sm mt-2">Send your heartfelt love, wishes and blessings for Jyotishman &amp; Nitumoni (আশীৰ্বাদ)</p>
+        <p class="text-stone-500 text-sm mt-2">Send your heartfelt love, wishes and blessings for Jyotishman &amp;
+          Nitumoni (আশীৰ্বাদ)</p>
         <div class="w-20 h-0.5 bg-rose-300 mx-auto mt-4 rounded-full"></div>
       </div>
 
@@ -408,20 +473,26 @@
 
             <!-- Name Input (Standard, no min restriction) -->
             <div>
-              <label for="rsvp-name" class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Your Name *</label>
-              <input type="text" id="rsvp-name" required placeholder="e.g. Priyabrat Sharma" class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition">
+              <label for="rsvp-name"
+                class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Your Name *</label>
+              <input type="text" id="rsvp-name" required placeholder="e.g. Priyabrat Sharma"
+                class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition">
             </div>
 
             <!-- Message / Wishes Input (Min 10 chars, no max) -->
             <div>
               <div class="flex justify-between items-center mb-1.5">
-                <label for="rsvp-message" class="block text-xs font-semibold uppercase tracking-wider text-stone-700">Your Blessings *</label>
+                <label for="rsvp-message"
+                  class="block text-xs font-semibold uppercase tracking-wider text-stone-700">Your Blessings *</label>
                 <span id="msg-counter" class="text-[11px] font-mono text-stone-400">Min 10 chars</span>
               </div>
-              <textarea id="rsvp-message" required minlength="10" rows="3" placeholder="Write your heartfelt blessing and warm wishes for Jyotishman & Nitumoni..." class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition"></textarea>
+              <textarea id="rsvp-message" required minlength="10" rows="3"
+                placeholder="Write your heartfelt blessing and warm wishes for Jyotishman & Nitumoni..."
+                class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition"></textarea>
             </div>
 
-            <button type="submit" id="submit-wish-btn" class="w-full py-3.5 rounded-full bg-rose-600 text-white font-semibold text-xs uppercase tracking-widest hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-rose-200 transition-all duration-300">
+            <button type="submit" id="submit-wish-btn"
+              class="w-full py-3.5 rounded-full bg-rose-600 text-white font-semibold text-xs uppercase tracking-widest hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-rose-200 transition-all duration-300">
               Send Your Blessings
             </button>
           </form>
@@ -445,25 +516,30 @@
   <!-- 6. Save The Date Section -->
   <section id="save-the-date" class="py-20 px-4 bg-white border-y border-rose-100">
     <div class="max-w-3xl mx-auto text-center fade-on-scroll">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 border border-rose-200 text-rose-600 mb-4 animate-romantic-pulse">
+      <div
+        class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 border border-rose-200 text-rose-600 mb-4 animate-romantic-pulse">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       </div>
 
       <span class="text-xs uppercase tracking-[0.3em] text-rose-600 font-semibold block">Mark Your Calendar</span>
       <h2 class="font-serif-title text-3xl md:text-5xl text-stone-800 mt-1 mb-2">Save Our Date</h2>
       <p class="font-script text-2xl text-rose-gold mb-3">Thursday, March 4, 2027 • ১৯ ফাগুণ, ২০২৭</p>
-      
+
       <p class="text-stone-600 text-sm max-w-md mx-auto mb-8 font-light leading-relaxed">
-        We would be honoured by your presence and blessings on our auspicious wedding day. Tap below to save the date directly to your personal calendar!
+        We would be honoured by your presence and blessings on our auspicious wedding day. Tap below to save the date
+        directly to your personal calendar!
       </p>
 
       <!-- Save The Date Action Button -->
       <div>
-        <a href="save-the-date.ics" download="jyotishman-nitumoni-wedding.ics" class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-rose-600 text-white text-xs font-semibold uppercase tracking-wider hover:bg-rose-700 transition shadow-lg shadow-rose-200">
+        <a href="save-the-date.ics" download="jyotishman-nitumoni-wedding.ics"
+          class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-rose-600 text-white text-xs font-semibold uppercase tracking-wider hover:bg-rose-700 transition shadow-lg shadow-rose-200">
           <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           <span>Save The Date</span>
         </a>
@@ -472,19 +548,23 @@
   </section>
 
   <!-- Blessings Confirmation Success Modal -->
-  <div id="rsvp-success" class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div id="rsvp-success"
+    class="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center shadow-2xl border border-rose-100">
-      <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4 text-3xl">
+      <div
+        class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center mx-auto mb-4 text-3xl">
         🌸
       </div>
       <h3 class="font-serif-title text-3xl text-stone-800 font-semibold">Thank You!</h3>
       <p class="text-stone-600 text-sm mt-2 font-light leading-relaxed">
-        Your warm blessings have been received with heartfelt love and gratitude. We look forward to welcoming you to our celebrations!
+        Your warm blessings have been received with heartfelt love and gratitude. We look forward to welcoming you to
+        our celebrations!
       </p>
       <p class="text-rose-700 text-xs font-serif-title italic mt-2">
         আপোনাৰ আন্তৰিক আশীৰ্বাদৰ বাবে বহুত বহুত ধন্যবাদ।
       </p>
-      <button onclick="closeSuccessModal()" class="mt-6 px-8 py-2.5 rounded-full bg-rose-600 text-white text-xs uppercase font-semibold tracking-wider hover:bg-rose-700 transition">
+      <button onclick="closeSuccessModal()"
+        class="mt-6 px-8 py-2.5 rounded-full bg-rose-600 text-white text-xs uppercase font-semibold tracking-wider hover:bg-rose-700 transition">
         Close
       </button>
     </div>
@@ -494,7 +574,8 @@
   <footer class="py-16 px-4 bg-white text-center border-t border-rose-100">
     <div class="max-w-xl mx-auto space-y-4">
       <div class="font-script text-4xl text-rose-600">Jyotishman & Nitumoni</div>
-      <p class="font-serif-title text-lg text-stone-700 italic">"Love does not consist in gazing at each other, but in looking outward together in the same direction."</p>
+      <p class="font-serif-title text-lg text-stone-700 italic">"Love does not consist in gazing at each other, but in
+        looking outward together in the same direction."</p>
       <p class="text-[11px] uppercase tracking-widest text-stone-400 pt-4">#JyotishmanWedsNitumoni • 2027</p>
     </div>
   </footer>
@@ -502,5 +583,5 @@
   <!-- App Script -->
   <script src="app.js"></script>
 </body>
-</html>
 
+</html>

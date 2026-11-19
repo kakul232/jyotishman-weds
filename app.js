@@ -431,7 +431,7 @@ function initAmbientAudio() {
     if (playing) {
       toggleBtn.classList.add('bg-rose-600', 'text-white', 'border-rose-600', 'shadow-rose-300', 'animate-romantic-pulse');
       toggleBtn.classList.remove('bg-white/95', 'text-rose-600', 'border-rose-300');
-      if (statusText) statusText.innerText = 'Now Playing: Romantic Piano 🎵';
+      if (statusText) statusText.innerText = 'Now Playing: উৰুলীৰ মংগল ধ্বনি 🎶';
       if (icon) {
         icon.innerHTML = `
           <!-- Pause / Equalizer Icon -->
@@ -442,7 +442,7 @@ function initAmbientAudio() {
     } else {
       toggleBtn.classList.remove('bg-rose-600', 'text-white', 'border-rose-600', 'shadow-rose-300', 'animate-romantic-pulse');
       toggleBtn.classList.add('bg-white/95', 'text-rose-600', 'border-rose-300');
-      if (statusText) statusText.innerText = 'Play Wedding Music 🎵';
+      if (statusText) statusText.innerText = 'Play Wedding Biya Naam 🎶';
       if (icon) {
         icon.innerHTML = `
           <!-- Play Icon -->
