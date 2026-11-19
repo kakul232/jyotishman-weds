@@ -227,13 +227,27 @@ function initRSVP() {
     });
   }
 
-  // Live Character Validation UX (Name min 5, Msg min 10, no max)
+  // Live Character Validation UX (Blessings min 10 chars)
   const nameInput = document.getElementById('rsvp-name');
   const msgInput = document.getElementById('rsvp-message');
-  const nameCounter = document.getElementById('name-counter');
   const msgCounter = document.getElementById('msg-counter');
   // Honeypot element for anti-spam
   const honeypotEl = document.getElementById('honeypot_website');
+
+  if (msgInput && msgCounter) {
+    msgInput.addEventListener('input', () => {
+      const len = msgInput.value.trim().length;
+      if (len < 10) {
+        msgCounter.innerText = `${len}/10 chars min`;
+        msgCounter.classList.add('text-amber-600');
+        msgCounter.classList.remove('text-emerald-600', 'text-stone-400');
+      } else {
+        msgCounter.innerText = `✓ ${len} chars`;
+        msgCounter.classList.remove('text-amber-600', 'text-stone-400');
+        msgCounter.classList.add('text-emerald-600');
+      }
+    });
+  }
 
   // Silent Rate Limiting (Coool-down protection without intrusive banner)
   const COOLDOWN_SECONDS = 30;
@@ -284,12 +298,6 @@ function initRSVP() {
 
       if (!name || !rawMessage) return;
 
-      if (name.length < 5) {
-        alert('Please enter at least 5 characters for your name.');
-        nameInput.focus();
-        return;
-      }
-
       if (rawMessage.length < 10) {
         alert('Please enter at least 10 characters for your blessing message.');
         msgInput.focus();
@@ -334,9 +342,7 @@ function initRSVP() {
       }
 
       form.reset();
-      if (nameCounter) nameCounter.innerText = 'Min 5 chars';
       if (msgCounter) msgCounter.innerText = 'Min 10 chars';
-      if (nameCounter) nameCounter.className = 'text-[11px] font-mono text-stone-400';
       if (msgCounter) msgCounter.className = 'text-[11px] font-mono text-stone-400';
 
       // Activate clean button countdown without showing any intrusive banners
