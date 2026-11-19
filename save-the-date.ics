@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jyotishman & Nitumoni Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wedding-jyotishman-nitumoni-20270304@jyotishman-weds.vercel.app
+DTSTAMP:20261120T000000Z
+DTSTART:20270304T150000Z
+DTEND:20270304T183000Z
+SUMMARY:Jyotishman & Nitumoni's Wedding Ceremony
+DESCRIPTION:Celebrating the auspicious wedding ceremony of Jyotishman and Nitumoni (Borjatri Jatra & Bibah). We warmly invite your presence and blessings!\n\nWebsite: https://jyotishman-weds.vercel.app/\nVenue: Gopal Bazar, Nalbari, Assam\nGoogle Maps: https://maps.app.goo.gl/zswNjEAvXApxss8F6
+LOCATION:Gopal Bazar, Nalbari, Assam 781335
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-P1D
+DESCRIPTION:Reminder: Jyotishman & Nitumoni's Wedding Tomorrow!
+ACTION:DISPLAY
+END:VALARM
+END:VEVENT
+END:VCALENDAR
