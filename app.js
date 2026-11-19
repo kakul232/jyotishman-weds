@@ -471,22 +471,36 @@ function initAmbientAudio() {
 
   toggleBtn.addEventListener('click', togglePlay);
 
-  // Attempt romantic soft autoplay on the user's first interactive touch/click anywhere on page
-  const tryFirstPlay = () => {
+  // 1. Try immediate autoplay (Works if user interacted or browser permits)
+  const playPromise = audioElement.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      isPlaying = true;
+      updateUI(true);
+    }).catch(() => {
+      // Modern browsers (Chrome/Safari/iOS/Android) block unmuted audio without gesture
+      isPlaying = false;
+      updateUI(false);
+    });
+  }
+
+  // 2. Play on ANY first user interaction across the window (click, tap, touch, scroll, keydown)
+  const triggerAudioOnGesture = () => {
     if (!isPlaying) {
       audioElement.play().then(() => {
         isPlaying = true;
         updateUI(true);
-      }).catch(() => {
-        // Silent catch for strict browser autoplay restrictions
-      });
+      }).catch((e) => console.log('Autoplay pending user gesture:', e));
     }
-    document.removeEventListener('click', tryFirstPlay);
-    document.removeEventListener('touchstart', tryFirstPlay);
+    // Clean up event listeners once triggered
+    ['click', 'touchstart', 'touchend', 'scroll', 'keydown'].forEach(evt => {
+      window.removeEventListener(evt, triggerAudioOnGesture, { capture: true });
+    });
   };
 
-  document.addEventListener('click', tryFirstPlay, { once: true });
-  document.addEventListener('touchstart', tryFirstPlay, { once: true });
+  ['click', 'touchstart', 'touchend', 'scroll', 'keydown'].forEach(evt => {
+    window.addEventListener(evt, triggerAudioOnGesture, { once: true, capture: true, passive: true });
+  });
 }
 
 /* -------------------------------------------------------------
