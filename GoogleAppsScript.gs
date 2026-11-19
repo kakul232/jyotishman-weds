@@ -25,10 +25,28 @@ function doPost(e) {
     var doc = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = doc.getActiveSheet();
 
-    var data = JSON.parse(e.postData.contents);
+    var name = 'Anonymous';
+    var message = '';
+
+    // Handle both JSON payload and form-urlencoded / parameter payload
+    if (e && e.postData && e.postData.contents) {
+      try {
+        var data = JSON.parse(e.postData.contents);
+        name = data.name || name;
+        message = data.message || message;
+      } catch (jsonErr) {
+        // If not JSON, check parameters
+        if (e.parameter) {
+          name = e.parameter.name || name;
+          message = e.parameter.message || message;
+        }
+      }
+    } else if (e && e.parameter) {
+      name = e.parameter.name || name;
+      message = e.parameter.message || message;
+    }
+
     var timestamp = new Date();
-    var name = data.name || 'Anonymous';
-    var message = data.message || '';
 
     // Append row: Timestamp, Name, Message
     sheet.appendRow([timestamp, name, message]);

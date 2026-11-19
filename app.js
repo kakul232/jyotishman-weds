@@ -348,12 +348,19 @@ function initRSVP() {
 
       // Send to Google Sheet if API URL configured
       if (sheetApiUrl) {
-        fetch(sheetApiUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, message: finalMessage })
-        }).catch(err => console.log('Sheet post error:', err));
+        // Use FormData / text/plain with no-cors to prevent preflight blocking
+        // Send as standard form data or plain text
+        try {
+          const payload = JSON.stringify({ name: name, message: finalMessage });
+          fetch(sheetApiUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: payload
+          }).catch(err => console.log('Sheet post error:', err));
+        } catch (err) {
+          console.log('Error triggering sheet post:', err);
+        }
       }
 
       // Update local list & localStorage
