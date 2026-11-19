@@ -266,52 +266,12 @@ function initRSVP() {
     });
   }
 
-  // Persistent Cooldown Rate Limiter (Stored in localStorage to prevent page refresh bypass)
-  const COOLDOWN_SECONDS = 30;
-
-  function updateRateLimitState() {
-    const lastSubmit = parseInt(localStorage.getItem('last_blessing_submit') || '0', 10);
-    const now = Date.now();
-    const elapsedSeconds = Math.floor((now - lastSubmit) / 1000);
-
-    if (elapsedSeconds < COOLDOWN_SECONDS) {
-      const remaining = COOLDOWN_SECONDS - elapsedSeconds;
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerText = `Please wait ${remaining}s...`;
-      }
-      if (cooldownBanner) {
-        cooldownBanner.classList.remove('hidden');
-        if (cooldownTimer) cooldownTimer.innerText = `${remaining}s`;
-      }
-      setTimeout(updateRateLimitState, 1000);
-      return false;
-    } else {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Send Your Blessings';
-      }
-      if (cooldownBanner) cooldownBanner.classList.add('hidden');
-      return true;
-    }
-  }
-
-  // Check state on load
-  updateRateLimitState();
+  // Honeypot element for anti-spam
+  const honeypotEl = document.getElementById('honeypot_website');
 
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      // Check persistent cooldown
-      const lastSubmit = parseInt(localStorage.getItem('last_blessing_submit') || '0', 10);
-      const now = Date.now();
-      const elapsed = Math.floor((now - lastSubmit) / 1000);
-
-      if (elapsed < COOLDOWN_SECONDS) {
-        updateRateLimitState();
-        return;
-      }
 
       // Honeypot check
       if (honeypotEl && honeypotEl.value.trim() !== '') {
@@ -380,8 +340,10 @@ function initRSVP() {
       if (nameCounter) nameCounter.className = 'text-[11px] font-mono text-stone-400';
       if (msgCounter) msgCounter.className = 'text-[11px] font-mono text-stone-400';
 
-      // Start active cooldown timer
-      updateRateLimitState();
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Send Your Blessings';
+      }
     });
   }
 }
