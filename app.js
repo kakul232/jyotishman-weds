@@ -235,9 +235,42 @@ function initRSVP() {
   // Honeypot element for anti-spam
   const honeypotEl = document.getElementById('honeypot_website');
 
+  // Silent Rate Limiting (Coool-down protection without intrusive banner)
+  const COOLDOWN_SECONDS = 30;
+
+  function checkCooldown() {
+    const lastSubmit = parseInt(localStorage.getItem('last_blessing_submit') || '0', 10);
+    const now = Date.now();
+    const elapsed = Math.floor((now - lastSubmit) / 1000);
+    return elapsed >= COOLDOWN_SECONDS ? 0 : (COOLDOWN_SECONDS - elapsed);
+  }
+
+  // Update button state cleanly if user recently submitted
+  function updateButtonState() {
+    const remaining = checkCooldown();
+    if (remaining > 0 && submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = `Please wait ${remaining}s...`;
+      setTimeout(updateButtonState, 1000);
+    } else if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Send Your Blessings';
+    }
+  }
+
+  updateButtonState();
+
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Silent Rate Limiting Check
+      const remaining = checkCooldown();
+      if (remaining > 0) {
+        alert(`Please wait ${remaining} seconds before sending another blessing.`);
+        updateButtonState();
+        return;
+      }
 
       // Honeypot check
       if (honeypotEl && honeypotEl.value.trim() !== '') {
@@ -306,10 +339,8 @@ function initRSVP() {
       if (nameCounter) nameCounter.className = 'text-[11px] font-mono text-stone-400';
       if (msgCounter) msgCounter.className = 'text-[11px] font-mono text-stone-400';
 
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = 'Send Your Blessings';
-      }
+      // Activate clean button countdown without showing any intrusive banners
+      updateButtonState();
     });
   }
 }
