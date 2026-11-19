@@ -231,7 +231,6 @@ function initRSVP() {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('rsvp-name').value.trim();
-      const attendance = document.querySelector('input[name="attendance"]:checked')?.value || 'Yes';
       const message = document.getElementById('rsvp-message').value.trim();
 
       if (!name) return;
@@ -239,7 +238,6 @@ function initRSVP() {
       const newWish = {
         id: Date.now(),
         name: name,
-        attendance: attendance,
         message: message || 'Warmest congratulations and heartfelt blessings to Jyotishman & Nitumoni!',
         date: new Date().toISOString().split('T')[0],
         time: 'Just now'
@@ -247,7 +245,7 @@ function initRSVP() {
 
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Saving Blessings...</span>`;
+        submitBtn.innerHTML = `<span>Sending Blessings...</span>`;
       }
 
       // Update local list & localStorage
@@ -268,7 +266,7 @@ function initRSVP() {
       form.reset();
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Confirm RSVP & Send Wishes</span>`;
+        submitBtn.innerHTML = `<span>Send Your Blessings</span>`;
       }
     });
   }
