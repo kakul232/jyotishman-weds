@@ -10,7 +10,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   initPetalCanvas();
   initCountdown();
-  initQRCode();
   initRSVP();
   initAmbientAudio();
   initScrollAnimations();
