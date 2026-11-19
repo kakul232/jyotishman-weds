@@ -232,40 +232,6 @@ function initRSVP() {
   const msgInput = document.getElementById('rsvp-message');
   const nameCounter = document.getElementById('name-counter');
   const msgCounter = document.getElementById('msg-counter');
-  const cooldownBanner = document.getElementById('rate-limit-banner');
-  const cooldownTimer = document.getElementById('cooldown-timer');
-  const honeypotEl = document.getElementById('honeypot_website');
-
-  if (nameInput && nameCounter) {
-    nameInput.addEventListener('input', () => {
-      const len = nameInput.value.trim().length;
-      if (len < 5) {
-        nameCounter.innerText = `${len}/5 chars min`;
-        nameCounter.classList.add('text-amber-600');
-        nameCounter.classList.remove('text-emerald-600', 'text-stone-400');
-      } else {
-        nameCounter.innerText = `✓ ${len} chars`;
-        nameCounter.classList.remove('text-amber-600', 'text-stone-400');
-        nameCounter.classList.add('text-emerald-600');
-      }
-    });
-  }
-
-  if (msgInput && msgCounter) {
-    msgInput.addEventListener('input', () => {
-      const len = msgInput.value.trim().length;
-      if (len < 10) {
-        msgCounter.innerText = `${len}/10 chars min`;
-        msgCounter.classList.add('text-amber-600');
-        msgCounter.classList.remove('text-emerald-600', 'text-stone-400');
-      } else {
-        msgCounter.innerText = `✓ ${len} chars`;
-        msgCounter.classList.remove('text-amber-600', 'text-stone-400');
-        msgCounter.classList.add('text-emerald-600');
-      }
-    });
-  }
-
   // Honeypot element for anti-spam
   const honeypotEl = document.getElementById('honeypot_website');
 
