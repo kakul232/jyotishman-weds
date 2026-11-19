@@ -227,7 +227,7 @@ function initRSVP() {
     });
   }
 
-  // Live Character Counters UX
+  // Live Character Validation UX (Name min 5, Msg min 10, no max)
   const nameInput = document.getElementById('rsvp-name');
   const msgInput = document.getElementById('rsvp-message');
   const nameCounter = document.getElementById('name-counter');
@@ -237,28 +237,30 @@ function initRSVP() {
 
   if (nameInput && nameCounter) {
     nameInput.addEventListener('input', () => {
-      const len = nameInput.value.length;
-      nameCounter.innerText = `${len}/10`;
-      if (len >= 10) {
-        nameCounter.classList.add('text-rose-600', 'font-bold');
-        nameCounter.classList.remove('text-stone-400');
+      const len = nameInput.value.trim().length;
+      if (len < 5) {
+        nameCounter.innerText = `${len}/5 chars min`;
+        nameCounter.classList.add('text-amber-600');
+        nameCounter.classList.remove('text-emerald-600', 'text-stone-400');
       } else {
-        nameCounter.classList.remove('text-rose-600', 'font-bold');
-        nameCounter.classList.add('text-stone-400');
+        nameCounter.innerText = `✓ ${len} chars`;
+        nameCounter.classList.remove('text-amber-600', 'text-stone-400');
+        nameCounter.classList.add('text-emerald-600');
       }
     });
   }
 
   if (msgInput && msgCounter) {
     msgInput.addEventListener('input', () => {
-      const len = msgInput.value.length;
-      msgCounter.innerText = `${len}/50`;
-      if (len >= 50) {
-        msgCounter.classList.add('text-rose-600', 'font-bold');
-        msgCounter.classList.remove('text-stone-400');
+      const len = msgInput.value.trim().length;
+      if (len < 10) {
+        msgCounter.innerText = `${len}/10 chars min`;
+        msgCounter.classList.add('text-amber-600');
+        msgCounter.classList.remove('text-emerald-600', 'text-stone-400');
       } else {
-        msgCounter.classList.remove('text-rose-600', 'font-bold');
-        msgCounter.classList.add('text-stone-400');
+        msgCounter.innerText = `✓ ${len} chars`;
+        msgCounter.classList.remove('text-amber-600', 'text-stone-400');
+        msgCounter.classList.add('text-emerald-600');
       }
     });
   }
@@ -318,25 +320,32 @@ function initRSVP() {
       }
 
       const name = nameInput.value.trim();
-      const message = msgInput.value.trim();
+      const rawMessage = msgInput.value.trim();
 
-      if (!name || !message) return;
+      if (!name || !rawMessage) return;
 
-      if (name.length > 10) {
-        alert('Please keep your name within 10 characters.');
+      if (name.length < 5) {
+        alert('Please enter at least 5 characters for your name.');
+        nameInput.focus();
         return;
       }
 
-      if (message.length > 50) {
-        alert('Please keep your blessing message within 50 characters.');
+      if (rawMessage.length < 10) {
+        alert('Please enter at least 10 characters for your blessing message.');
+        msgInput.focus();
         return;
       }
 
       // Block URL links
-      if (/https?:\/\/|<script|www\./i.test(message) || /https?:\/\/|<script|www\./i.test(name)) {
+      if (/https?:\/\/|<script|www\./i.test(rawMessage) || /https?:\/\/|<script|www\./i.test(name)) {
         alert('Links and web addresses are not permitted in wedding blessings.');
         return;
       }
+
+      // Add a random celebratory romantic emoji with the blessing
+      const blessingEmojis = ['💐', '🌸', '✨', '💕', '🥂', '🌹', '🕊️', '💍', '🎉', '💖'];
+      const randomEmoji = blessingEmojis[Math.floor(Math.random() * blessingEmojis.length)];
+      const finalMessage = `${rawMessage} ${randomEmoji}`;
 
       // Record successful submit timestamp
       localStorage.setItem('last_blessing_submit', Date.now().toString());
@@ -344,7 +353,7 @@ function initRSVP() {
       const newWish = {
         id: Date.now(),
         name: name,
-        message: message,
+        message: finalMessage,
         date: new Date().toISOString().split('T')[0],
         time: 'Just now'
       };
@@ -365,8 +374,10 @@ function initRSVP() {
       }
 
       form.reset();
-      if (nameCounter) nameCounter.innerText = '0/10';
-      if (msgCounter) msgCounter.innerText = '0/50';
+      if (nameCounter) nameCounter.innerText = 'Min 5 chars';
+      if (msgCounter) msgCounter.innerText = 'Min 10 chars';
+      if (nameCounter) nameCounter.className = 'text-[11px] font-mono text-stone-400';
+      if (msgCounter) msgCounter.className = 'text-[11px] font-mono text-stone-400';
 
       // Start active cooldown timer
       updateRateLimitState();
