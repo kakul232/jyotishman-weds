@@ -9,8 +9,11 @@ DTSTAMP:20261120T000000Z
 DTSTART:20270304T150000Z
 DTEND:20270304T183000Z
 SUMMARY:Jyotishman & Nitumoni's Wedding Ceremony
-DESCRIPTION:Celebrating the auspicious wedding ceremony of Jyotishman and Nitumoni (Borjatri Jatra & Bibah). We warmly invite your presence and blessings!\n\nWebsite: https://jyotishman-weds.vercel.app/\nVenue: Gopal Bazar, Nalbari, Assam\nGoogle Maps: https://maps.app.goo.gl/zswNjEAvXApxss8F6
+DESCRIPTION:Celebrating the wedding ceremony of Jyotishman and Nitumoni (Borjatri Jatra & Bibah)!\n\n📍 Google Maps Venue Location: https://maps.app.goo.gl/zswNjEAvXApxss8F6\n🌐 Wedding Invitation: https://jyotishman-weds.vercel.app/\n\nWe warmly look forward to your presence and blessings!
 LOCATION:Gopal Bazar, Nalbari, Assam 781335
+GEO:26.4468;91.4428
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS="Gopal Bazar, Nalbari, Assam 781335";X-APPLE-RADIUS=70;X-TITLE="Gopal Bazar, Nalbari":geo:26.4468,91.4428
+URL:https://maps.app.goo.gl/zswNjEAvXApxss8F6
 STATUS:CONFIRMED
 SEQUENCE:0
 BEGIN:VALARM
