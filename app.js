@@ -227,18 +227,71 @@ function initRSVP() {
     });
   }
 
+  // Dynamic Math Quiz for Anti-Spam
+  const quizEl = document.getElementById('security-quiz');
+  const answerEl = document.getElementById('security-answer');
+  const honeypotEl = document.getElementById('honeypot_website');
+
+  let num1 = Math.floor(Math.random() * 5) + 2;
+  let num2 = Math.floor(Math.random() * 5) + 1;
+  let expectedSum = num1 + num2;
+
+  function refreshQuiz() {
+    num1 = Math.floor(Math.random() * 5) + 2;
+    num2 = Math.floor(Math.random() * 5) + 1;
+    expectedSum = num1 + num2;
+    if (quizEl) quizEl.innerText = `${num1} + ${num2}`;
+    if (answerEl) answerEl.value = '';
+  }
+
+  refreshQuiz();
+
+  // Rate Limiting (Prevent multiple submits within 15 seconds)
+  let lastSubmitTime = 0;
+
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // 1. Honeypot check: If bot filled the hidden input, silently discard
+      if (honeypotEl && honeypotEl.value.trim() !== '') {
+        console.warn("Spam bot trapped by honeypot.");
+        form.reset();
+        return;
+      }
+
+      // 2. Math verification check
+      const userAnswer = parseInt(answerEl ? answerEl.value.trim() : '0', 10);
+      if (userAnswer !== expectedSum) {
+        alert('Incorrect security check answer. Please solve the simple math puzzle: ' + num1 + ' + ' + num2);
+        if (answerEl) answerEl.focus();
+        return;
+      }
+
+      // 3. Time rate-limiting check
+      const now = Date.now();
+      if (now - lastSubmitTime < 15000) {
+        alert('Please wait a moment before sending another blessing.');
+        return;
+      }
+
       const name = document.getElementById('rsvp-name').value.trim();
       const message = document.getElementById('rsvp-message').value.trim();
 
-      if (!name) return;
+      if (!name || !message) return;
+
+      // 4. Basic Link & Spam Keyword check
+      if (/https?:\/\/|<script|www\./i.test(message) || /https?:\/\/|<script|www\./i.test(name)) {
+        alert('Links and web addresses are not permitted in wedding wishes.');
+        return;
+      }
+
+      lastSubmitTime = now;
 
       const newWish = {
         id: Date.now(),
         name: name,
-        message: message || 'Warmest congratulations and heartfelt blessings to Jyotishman & Nitumoni!',
+        message: message,
         date: new Date().toISOString().split('T')[0],
         time: 'Just now'
       };
@@ -264,6 +317,8 @@ function initRSVP() {
       }
 
       form.reset();
+      refreshQuiz();
+
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<span>Send Your Blessings</span>`;
