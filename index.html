@@ -35,14 +35,14 @@
     <source src="assets/wedding-romantic.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+  <div class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 flex items-center gap-2 sm:gap-3">
     <!-- Music Notification Bubble -->
     <div id="music-tooltip" class="hidden sm:flex items-center gap-2 bg-white/95 border border-rose-200 shadow-lg px-3.5 py-1.5 rounded-full text-xs text-rose-700 animate-gentle-float">
       <span class="inline-block w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
       <span id="music-status-text" class="font-medium">Play Wedding Music 🎵</span>
     </div>
 
-    <button id="music-toggle" aria-label="Toggle romantic wedding music" class="music-toggle-btn w-14 h-14 rounded-full bg-white/95 border-2 border-rose-300 flex items-center justify-center text-rose-600 hover:text-rose-700 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
+    <button id="music-toggle" aria-label="Toggle romantic wedding music" class="music-toggle-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 border-2 border-rose-300 flex items-center justify-center text-rose-600 hover:text-rose-700 shadow-xl transition-all duration-300 hover:scale-105 active:scale-95">
       <span id="music-icon">
         <!-- Play Icon -->
         <svg class="w-6 h-6 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,15 +54,27 @@
   </div>
 
   <!-- Header Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-30 bg-white/70 backdrop-blur-md border-b border-rose-100/60 py-3.5 px-6 transition-all">
+  <nav class="fixed top-0 left-0 right-0 z-30 bg-white/80 backdrop-blur-md border-b border-rose-100/70 py-3 px-4 sm:px-6 transition-all">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="#hero" class="font-script text-3xl text-rose-700 hover:text-rose-800 transition tracking-wider">J & N</a>
-      <div class="hidden sm:flex items-center space-x-7 text-xs uppercase tracking-widest text-stone-600 font-medium">
+      <a href="#hero" class="font-script text-2xl sm:text-3xl text-rose-700 hover:text-rose-800 transition tracking-wider">J &amp; N</a>
+      
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-6 text-xs uppercase tracking-widest text-stone-600 font-medium">
         <a href="#couple" class="hover:text-rose-600 transition">The Couple</a>
-        <a href="#family" class="hover:text-rose-600 transition">Family & Invitation</a>
-        <a href="#venue" class="hover:text-rose-600 transition">Venue & Map</a>
+        <a href="#family" class="hover:text-rose-600 transition">Family &amp; Invitation</a>
+        <a href="#venue" class="hover:text-rose-600 transition">Venue &amp; Map</a>
         <a href="#rsvp" class="hover:text-rose-600 transition">Send Blessings</a>
         <a href="#qr-section" class="px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition">Save the Date</a>
+      </div>
+
+      <!-- Mobile Top Quick Action -->
+      <div class="flex md:hidden items-center gap-2">
+        <a href="#venue" class="px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-medium border border-stone-200">
+          📍 Map
+        </a>
+        <a href="#rsvp" class="px-3 py-1 rounded-full bg-rose-600 text-white text-[11px] font-semibold shadow-sm">
+          Blessings
+        </a>
       </div>
     </div>
   </nav>
@@ -79,38 +91,38 @@
         <span class="font-serif-title text-2xl font-semibold text-rose-700 tracking-tighter">J & N</span>
       </div>
 
-      <div class="space-y-3">
-        <div class="font-serif-title text-base md:text-lg text-rose-700 font-semibold tracking-wide">
+      <div class="space-y-3 px-2">
+        <div class="font-serif-title text-base sm:text-lg text-rose-700 font-semibold tracking-wide">
           ॥ শ্রীশ্রী প্ৰজাপতয়ে নমঃ ॥
         </div>
-        <p class="text-xs uppercase tracking-[0.35em] text-stone-500 font-semibold">Groom's Wedding Invitation</p>
-        <h1 class="font-serif-title text-5xl md:text-7xl font-light tracking-wide text-stone-800 leading-tight pt-1">
+        <p class="text-[11px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-stone-500 font-semibold">Groom's Wedding Invitation</p>
+        <h1 class="font-serif-title text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-stone-800 leading-tight pt-1">
           Jyotishman <br class="sm:hidden">
-          <span class="font-script text-5xl md:text-7xl text-rose-500 font-normal px-2">weds</span> 
+          <span class="font-script text-4xl sm:text-6xl md:text-7xl text-rose-500 font-normal px-2">weds</span> 
           Nitumoni
         </h1>
-        <p class="font-serif-title text-base text-stone-600">
+        <p class="font-serif-title text-sm sm:text-base text-stone-600">
           শ্ৰী জ্যোতিস্মান শৰ্মা (বুবা) &amp; শ্ৰীনিতুমণি শৰ্মা (জান)
         </p>
-        <p class="font-script text-2xl md:text-3xl text-rose-gold pt-2">Seeking your warm presence, love &amp; blessings</p>
+        <p class="font-script text-xl sm:text-2xl md:text-3xl text-rose-gold pt-1 sm:pt-2">Seeking your warm presence, love &amp; blessings</p>
       </div>
 
       <!-- Wedding Date Badge -->
-      <div class="mt-8 inline-block glass-card rounded-full px-8 py-3.5 border border-rose-200">
-        <p class="text-xs md:text-sm uppercase tracking-[0.2em] text-stone-700 font-medium">
-          ১৯ ফাগুণ (ইং ৪ মাৰ্চ, ২০২৭) বৃহস্পতিবাৰ • Thursday, March 4, 2027
+      <div class="mt-6 sm:mt-8 inline-block glass-card rounded-2xl sm:rounded-full px-5 sm:px-8 py-3 sm:py-3.5 border border-rose-200 max-w-full">
+        <p class="text-[11px] sm:text-xs md:text-sm uppercase tracking-wide sm:tracking-[0.18em] text-stone-700 font-medium">
+          ১৯ ফাগুণ (ইং ৪ মাৰ্চ, ২০২৭) বৃহস্পতিবাৰ <span class="hidden sm:inline">•</span> <br class="sm:hidden"> Thursday, March 4, 2027
         </p>
-        <p class="text-[11px] text-rose-600 tracking-wider mt-0.5">
+        <p class="text-[10px] sm:text-[11px] text-rose-600 tracking-wider mt-1">
           খাবজাৰা গছৰতল চ'ক, গোপাল বজাৰ, জিলাঃ নলবাৰী (অসম)
         </p>
       </div>
 
       <!-- Quick Action Buttons -->
-      <div class="mt-10 flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider">
-        <a href="#rsvp" class="px-8 py-3.5 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-200 hover:bg-rose-700 hover:shadow-xl transition-all duration-300">
+      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 text-xs font-semibold uppercase tracking-wider w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="#rsvp" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-200 hover:bg-rose-700 hover:shadow-xl transition-all duration-300">
           Send Your Blessings
         </a>
-        <a href="#venue" class="px-8 py-3.5 rounded-full bg-white text-stone-700 border border-stone-200 hover:border-rose-300 hover:text-rose-600 shadow-sm transition-all duration-300">
+        <a href="#venue" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full bg-white text-stone-700 border border-stone-200 hover:border-rose-300 hover:text-rose-600 shadow-sm transition-all duration-300">
           View Venue Map
         </a>
       </div>
