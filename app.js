@@ -227,26 +227,10 @@ function initRSVP() {
     });
   }
 
-  // Dynamic Math Quiz for Anti-Spam
-  const quizEl = document.getElementById('security-quiz');
-  const answerEl = document.getElementById('security-answer');
+  // Honeypot element
   const honeypotEl = document.getElementById('honeypot_website');
 
-  let num1 = Math.floor(Math.random() * 5) + 2;
-  let num2 = Math.floor(Math.random() * 5) + 1;
-  let expectedSum = num1 + num2;
-
-  function refreshQuiz() {
-    num1 = Math.floor(Math.random() * 5) + 2;
-    num2 = Math.floor(Math.random() * 5) + 1;
-    expectedSum = num1 + num2;
-    if (quizEl) quizEl.innerText = `${num1} + ${num2}`;
-    if (answerEl) answerEl.value = '';
-  }
-
-  refreshQuiz();
-
-  // Rate Limiting (Prevent multiple submits within 15 seconds)
+  // Rate Limiting (Prevent multiple submits within 10 seconds)
   let lastSubmitTime = 0;
 
   if (form) {
@@ -260,25 +244,28 @@ function initRSVP() {
         return;
       }
 
-      // 2. Math verification check
-      const userAnswer = parseInt(answerEl ? answerEl.value.trim() : '0', 10);
-      if (userAnswer !== expectedSum) {
-        alert('Incorrect security check answer. Please solve the simple math puzzle: ' + num1 + ' + ' + num2);
-        if (answerEl) answerEl.focus();
+      // 2. Character limit checks: Name <= 10, Message <= 50
+      const name = document.getElementById('rsvp-name').value.trim();
+      const message = document.getElementById('rsvp-message').value.trim();
+
+      if (!name || !message) return;
+
+      if (name.length > 10) {
+        alert('Please keep your name within 10 characters.');
+        return;
+      }
+
+      if (message.length > 50) {
+        alert('Please keep your blessing message within 50 characters.');
         return;
       }
 
       // 3. Time rate-limiting check
       const now = Date.now();
-      if (now - lastSubmitTime < 15000) {
+      if (now - lastSubmitTime < 10000) {
         alert('Please wait a moment before sending another blessing.');
         return;
       }
-
-      const name = document.getElementById('rsvp-name').value.trim();
-      const message = document.getElementById('rsvp-message').value.trim();
-
-      if (!name || !message) return;
 
       // 4. Basic Link & Spam Keyword check
       if (/https?:\/\/|<script|www\./i.test(message) || /https?:\/\/|<script|www\./i.test(name)) {
@@ -317,7 +304,6 @@ function initRSVP() {
       }
 
       form.reset();
-      refreshQuiz();
 
       if (submitBtn) {
         submitBtn.disabled = false;
