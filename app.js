@@ -227,46 +227,8 @@ function initRSVP() {
     });
   }
 
-  // If Firebase Firestore is configured, sync in real-time
-  if (typeof db !== 'undefined' && db) {
-    try {
-      db.collection('blessings')
-        .orderBy('timestamp', 'desc')
-        .limit(40)
-        .onSnapshot((snapshot) => {
-          const remoteWishes = [];
-          snapshot.forEach((doc) => {
-            const data = doc.data();
-            let formattedTime = 'Just now';
-            if (data.timestamp && data.timestamp.toDate) {
-              formattedTime = data.timestamp.toDate().toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric'
-              });
-            }
-            remoteWishes.push({
-              name: data.name,
-              attendance: data.attendance,
-              message: data.message,
-              time: formattedTime
-            });
-          });
-
-          if (remoteWishes.length > 0) {
-            savedWishes = remoteWishes;
-            localStorage.setItem('wedding_wishes', JSON.stringify(savedWishes));
-            renderWishes(savedWishes);
-          }
-        }, (err) => {
-          console.warn("Firestore snapshot listener:", err);
-        });
-    } catch (e) {
-      console.warn("Firestore binding:", e);
-    }
-  }
-
   if (form) {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('rsvp-name').value.trim();
       const attendance = document.querySelector('input[name="attendance"]:checked')?.value || 'Yes';
@@ -288,21 +250,7 @@ function initRSVP() {
         submitBtn.innerHTML = `<span>Saving Blessings...</span>`;
       }
 
-      // Try saving to Firestore if available
-      if (typeof db !== 'undefined' && db) {
-        try {
-          await db.collection('blessings').add({
-            name: newWish.name,
-            attendance: newWish.attendance,
-            message: newWish.message,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        } catch (error) {
-          console.error("Firestore write failed, using local JSON storage:", error);
-        }
-      }
-
-      // Always update local list & localStorage
+      // Update local list & localStorage
       savedWishes.unshift(newWish);
       localStorage.setItem('wedding_wishes', JSON.stringify(savedWishes));
       renderWishes(savedWishes);
