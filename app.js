@@ -167,23 +167,16 @@ function initQRCode() {
 }
 
 /* -------------------------------------------------------------
-   4. Interactive RSVP & Wishes Submission with Firestore Cloud Sync
+   4. Interactive RSVP & Wishes Submission (blessings.json + Firestore Sync)
 -------------------------------------------------------------- */
 function initRSVP() {
   const form = document.getElementById('rsvp-form');
   const wishesList = document.getElementById('wishes-container');
   const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+  const downloadBtn = document.getElementById('download-json-btn');
 
-  // Local fallback storage
+  // Load existing wishes from localStorage
   let savedWishes = JSON.parse(localStorage.getItem('wedding_wishes') || '[]');
-
-  // Default initial romantic wishes if empty
-  if (savedWishes.length === 0) {
-    savedWishes.push(
-      { name: 'Parag & Nilakshi', message: 'Jyotishman aru Nitumoniloi biyar xubhesa thakil! Always stay blessed! 💕🌸', time: 'Just now' },
-      { name: 'Bhaskar Jyoti & Family', message: 'A lifetime of happiness, harmony and endless love together! ✨🥂', time: '1 hr ago' }
-    );
-  }
 
   function renderWishes(wishes) {
     if (!wishesList) return;
@@ -198,14 +191,48 @@ function initRSVP() {
     `).join('');
   }
 
-  renderWishes(savedWishes);
+  // Load initial wishes from blessings.json if localStorage is empty
+  if (savedWishes.length === 0) {
+    fetch('blessings.json')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          savedWishes = data;
+          localStorage.setItem('wedding_wishes', JSON.stringify(savedWishes));
+          renderWishes(savedWishes);
+        }
+      })
+      .catch(() => {
+        // Fallback default
+        savedWishes = [
+          { name: 'Parag & Nilakshi', message: 'Jyotishman aru Nitumoniloi biyar xubhesa thakil! Always stay blessed! 💕🌸', time: 'Just now' },
+          { name: 'Bhaskar Jyoti & Family', message: 'A lifetime of happiness, harmony and endless love together! ✨🥂', time: '1 hr ago' }
+        ];
+        renderWishes(savedWishes);
+      });
+  } else {
+    renderWishes(savedWishes);
+  }
 
-  // If Firebase Firestore is configured, listen to real-time updates from "blessings" collection
+  // Export / Download blessings as blessings.json file
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(savedWishes, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "blessings.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    });
+  }
+
+  // If Firebase Firestore is configured, sync in real-time
   if (typeof db !== 'undefined' && db) {
     try {
       db.collection('blessings')
         .orderBy('timestamp', 'desc')
-        .limit(30)
+        .limit(40)
         .onSnapshot((snapshot) => {
           const remoteWishes = [];
           snapshot.forEach((doc) => {
@@ -231,10 +258,10 @@ function initRSVP() {
             renderWishes(savedWishes);
           }
         }, (err) => {
-          console.warn("Firestore snapshot listener error (falling back to local):", err);
+          console.warn("Firestore snapshot listener:", err);
         });
     } catch (e) {
-      console.warn("Could not bind Firestore listener:", e);
+      console.warn("Firestore binding:", e);
     }
   }
 
@@ -248,9 +275,11 @@ function initRSVP() {
       if (!name) return;
 
       const newWish = {
+        id: Date.now(),
         name: name,
         attendance: attendance,
         message: message || 'Warmest congratulations and heartfelt blessings to Jyotishman & Nitumoni!',
+        date: new Date().toISOString().split('T')[0],
         time: 'Just now'
       };
 
@@ -260,7 +289,6 @@ function initRSVP() {
       }
 
       // Try saving to Firestore if available
-      let firestoreSaved = false;
       if (typeof db !== 'undefined' && db) {
         try {
           await db.collection('blessings').add({
@@ -269,13 +297,12 @@ function initRSVP() {
             message: newWish.message,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           });
-          firestoreSaved = true;
         } catch (error) {
-          console.error("Firestore write failed, falling back to local storage:", error);
+          console.error("Firestore write failed, using local JSON storage:", error);
         }
       }
 
-      // Always update local storage & UI smoothly
+      // Always update local list & localStorage
       savedWishes.unshift(newWish);
       localStorage.setItem('wedding_wishes', JSON.stringify(savedWishes));
       renderWishes(savedWishes);

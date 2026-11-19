@@ -429,11 +429,19 @@
         <div class="space-y-4 fade-on-scroll">
           <div class="flex items-center justify-between pb-2 border-b border-rose-200">
             <h3 class="font-serif-title text-2xl text-stone-800 font-semibold">Guestbook Blessings</h3>
-            <span class="text-xs text-rose-600 font-semibold uppercase tracking-wider">Recent Wishes</span>
+            <div class="flex items-center gap-2">
+              <button id="download-json-btn" title="Download all RSVPs as blessings.json" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-medium border border-rose-200 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                <span>Export JSON</span>
+              </button>
+              <span class="text-xs text-rose-600 font-semibold uppercase tracking-wider">Recent</span>
+            </div>
           </div>
 
           <div id="wishes-container" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
-            <!-- Wishes injected via app.js -->
+            <!-- Wishes injected via blessings.json / app.js -->
           </div>
         </div>
       </div>
