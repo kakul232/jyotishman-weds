@@ -403,18 +403,31 @@
               <input type="text" id="honeypot_website" name="honeypot_website" tabindex="-1" autocomplete="off">
             </div>
 
+            <!-- Name Input with Live Character Counter UX -->
             <div>
-              <label for="rsvp-name" class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Your Name (Max 10 chars) *</label>
-              <input type="text" id="rsvp-name" required maxlength="10" placeholder="Your name..." class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90">
+              <div class="flex justify-between items-center mb-1.5">
+                <label for="rsvp-name" class="block text-xs font-semibold uppercase tracking-wider text-stone-700">Your Name *</label>
+                <span id="name-counter" class="text-[11px] font-mono text-stone-400">0/10</span>
+              </div>
+              <input type="text" id="rsvp-name" required maxlength="10" placeholder="e.g. Priyabrat" class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition">
             </div>
 
-            <!-- Message / Wishes -->
+            <!-- Message / Wishes Input with Live Character Counter UX -->
             <div>
-              <label for="rsvp-message" class="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5">Your Message / Blessings (Max 50 chars) *</label>
-              <textarea id="rsvp-message" required rows="3" maxlength="500" placeholder="Write your heartfelt blessing (up to 50 characters)..." class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90"></textarea>
+              <div class="flex justify-between items-center mb-1.5">
+                <label for="rsvp-message" class="block text-xs font-semibold uppercase tracking-wider text-stone-700">Your Blessings *</label>
+                <span id="msg-counter" class="text-[11px] font-mono text-stone-400">0/50</span>
+              </div>
+              <textarea id="rsvp-message" required rows="3" maxlength="50" placeholder="Wishing you eternal love and joy!..." class="w-full px-4 py-3 rounded-xl border border-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-400 text-sm bg-white/90 transition"></textarea>
             </div>
 
-            <button type="submit" class="w-full py-3.5 rounded-full bg-rose-600 text-white font-semibold text-xs uppercase tracking-widest hover:bg-rose-700 shadow-lg shadow-rose-200 transition-all duration-300">
+            <!-- Rate Limit Countdown Notice (Appears only when cooldown is active) -->
+            <div id="rate-limit-banner" class="hidden p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center justify-between">
+              <span>⏳ Please wait before sending another wish:</span>
+              <span id="cooldown-timer" class="font-bold font-mono text-rose-700">30s</span>
+            </div>
+
+            <button type="submit" id="submit-wish-btn" class="w-full py-3.5 rounded-full bg-rose-600 text-white font-semibold text-xs uppercase tracking-widest hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-rose-200 transition-all duration-300">
               Send Your Blessings
             </button>
           </form>

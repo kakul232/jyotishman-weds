@@ -227,26 +227,98 @@ function initRSVP() {
     });
   }
 
-  // Honeypot element
-  const honeypotEl = document.getElementById('honeypot_website');
+  // Live Character Counters UX
+  const nameInput = document.getElementById('rsvp-name');
+  const msgInput = document.getElementById('rsvp-message');
+  const nameCounter = document.getElementById('name-counter');
+  const msgCounter = document.getElementById('msg-counter');
+  const cooldownBanner = document.getElementById('rate-limit-banner');
+  const cooldownTimer = document.getElementById('cooldown-timer');
 
-  // Rate Limiting (Prevent multiple submits within 10 seconds)
-  let lastSubmitTime = 0;
+  if (nameInput && nameCounter) {
+    nameInput.addEventListener('input', () => {
+      const len = nameInput.value.length;
+      nameCounter.innerText = `${len}/10`;
+      if (len >= 10) {
+        nameCounter.classList.add('text-rose-600', 'font-bold');
+        nameCounter.classList.remove('text-stone-400');
+      } else {
+        nameCounter.classList.remove('text-rose-600', 'font-bold');
+        nameCounter.classList.add('text-stone-400');
+      }
+    });
+  }
+
+  if (msgInput && msgCounter) {
+    msgInput.addEventListener('input', () => {
+      const len = msgInput.value.length;
+      msgCounter.innerText = `${len}/50`;
+      if (len >= 50) {
+        msgCounter.classList.add('text-rose-600', 'font-bold');
+        msgCounter.classList.remove('text-stone-400');
+      } else {
+        msgCounter.classList.remove('text-rose-600', 'font-bold');
+        msgCounter.classList.add('text-stone-400');
+      }
+    });
+  }
+
+  // Persistent Cooldown Rate Limiter (Stored in localStorage to prevent page refresh bypass)
+  const COOLDOWN_SECONDS = 30;
+
+  function updateRateLimitState() {
+    const lastSubmit = parseInt(localStorage.getItem('last_blessing_submit') || '0', 10);
+    const now = Date.now();
+    const elapsedSeconds = Math.floor((now - lastSubmit) / 1000);
+
+    if (elapsedSeconds < COOLDOWN_SECONDS) {
+      const remaining = COOLDOWN_SECONDS - elapsedSeconds;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = `Please wait ${remaining}s...`;
+      }
+      if (cooldownBanner) {
+        cooldownBanner.classList.remove('hidden');
+        if (cooldownTimer) cooldownTimer.innerText = `${remaining}s`;
+      }
+      setTimeout(updateRateLimitState, 1000);
+      return false;
+    } else {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Send Your Blessings';
+      }
+      if (cooldownBanner) cooldownBanner.classList.add('hidden');
+      return true;
+    }
+  }
+
+  // Check state on load
+  updateRateLimitState();
 
   if (form) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // 1. Honeypot check: If bot filled the hidden input, silently discard
+      // Check persistent cooldown
+      const lastSubmit = parseInt(localStorage.getItem('last_blessing_submit') || '0', 10);
+      const now = Date.now();
+      const elapsed = Math.floor((now - lastSubmit) / 1000);
+
+      if (elapsed < COOLDOWN_SECONDS) {
+        updateRateLimitState();
+        return;
+      }
+
+      // Honeypot check
       if (honeypotEl && honeypotEl.value.trim() !== '') {
         console.warn("Spam bot trapped by honeypot.");
         form.reset();
         return;
       }
 
-      // 2. Character limit checks: Name <= 10, Message <= 50
-      const name = document.getElementById('rsvp-name').value.trim();
-      const message = document.getElementById('rsvp-message').value.trim();
+      const name = nameInput.value.trim();
+      const message = msgInput.value.trim();
 
       if (!name || !message) return;
 
@@ -260,20 +332,14 @@ function initRSVP() {
         return;
       }
 
-      // 3. Time rate-limiting check
-      const now = Date.now();
-      if (now - lastSubmitTime < 10000) {
-        alert('Please wait a moment before sending another blessing.');
-        return;
-      }
-
-      // 4. Basic Link & Spam Keyword check
+      // Block URL links
       if (/https?:\/\/|<script|www\./i.test(message) || /https?:\/\/|<script|www\./i.test(name)) {
-        alert('Links and web addresses are not permitted in wedding wishes.');
+        alert('Links and web addresses are not permitted in wedding blessings.');
         return;
       }
 
-      lastSubmitTime = now;
+      // Record successful submit timestamp
+      localStorage.setItem('last_blessing_submit', Date.now().toString());
 
       const newWish = {
         id: Date.now(),
@@ -282,11 +348,6 @@ function initRSVP() {
         date: new Date().toISOString().split('T')[0],
         time: 'Just now'
       };
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Sending Blessings...</span>`;
-      }
 
       // Update local list & localStorage
       savedWishes.unshift(newWish);
@@ -304,11 +365,11 @@ function initRSVP() {
       }
 
       form.reset();
+      if (nameCounter) nameCounter.innerText = '0/10';
+      if (msgCounter) msgCounter.innerText = '0/50';
 
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Send Your Blessings</span>`;
-      }
+      // Start active cooldown timer
+      updateRateLimitState();
     });
   }
 }
