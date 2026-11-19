@@ -67,7 +67,10 @@
         <a href="#family" class="hover:text-rose-600 transition">Family & Invitation</a>
         <a href="#venue" class="hover:text-rose-600 transition">Venue & Map</a>
         <a href="#rsvp" class="hover:text-rose-600 transition">RSVP</a>
-        <a href="#qr-section" class="px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition">Mobile QR</a>
+        <a href="#qr-section" class="px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 hover:bg-rose-100 transition flex items-center gap-1.5">
+          <span>Save the Date</span>
+          <span>📅</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -437,31 +440,33 @@
     </div>
   </section>
 
-  <!-- 6. QR Code for Mobile Guests & Calendar Sync (Placed at End Before Footer) -->
+  <!-- 6. Save The Date & Mobile QR Section -->
   <section id="qr-section" class="py-20 px-4 bg-white border-y border-rose-100">
     <div class="max-w-3xl mx-auto text-center fade-on-scroll">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 border border-rose-200 text-rose-600 mb-4">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-rose-50 border border-rose-200 text-rose-600 mb-4 animate-romantic-pulse">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
       </div>
 
-      <span class="text-xs uppercase tracking-[0.28em] text-rose-600 font-semibold block">Mobile Friendly Invitation</span>
-      <h2 class="font-serif-title text-3xl md:text-4xl text-stone-800 mt-1 mb-3">Scan to Open on Mobile</h2>
-      <p class="text-stone-600 text-sm max-w-md mx-auto mb-8 font-light">
-        Point your phone camera to this QR code to instantly view this invitation on your device, get directions, and save the date!
+      <span class="text-xs uppercase tracking-[0.3em] text-rose-600 font-semibold block">Mark Your Calendar</span>
+      <h2 class="font-serif-title text-3xl md:text-5xl text-stone-800 mt-1 mb-2">Save Our Date</h2>
+      <p class="font-script text-2xl text-rose-gold mb-3">Thursday, March 4, 2027 • ১৯ ফাগুণ, ২০২৭</p>
+      
+      <p class="text-stone-600 text-sm max-w-md mx-auto mb-8 font-light leading-relaxed">
+        Scan this QR code with your phone camera to take this digital invitation with you on mobile and save the date directly to your calendar!
       </p>
 
       <!-- QR Display Container -->
       <div class="inline-block qr-frame p-6 mb-8">
         <div id="qrcode" class="flex justify-center items-center"></div>
-        <p class="text-[11px] text-stone-500 mt-3 font-medium tracking-wide">Scan with any smartphone camera</p>
+        <p class="text-[11px] text-stone-500 mt-3 font-medium tracking-wide">Scan with phone to open invite</p>
       </div>
 
       <!-- Add to Calendar Button -->
       <div>
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jyotishman+%26+Nitumoni's+Wedding&dates=20270304T053000Z/20270304T173000Z&details=Celebrating+the+wedding+of+Jyotishman+and+Nitumoni!&location=Gopal+Bazar,+Nalbari,+Assam" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold uppercase tracking-wider hover:bg-rose-100 transition shadow-sm">
-          <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Jyotishman+%26+Nitumoni's+Wedding&dates=20270304T053000Z/20270304T173000Z&details=Celebrating+the+wedding+of+Jyotishman+and+Nitumoni!&location=Gopal+Bazar,+Nalbari,+Assam" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-rose-600 text-white text-xs font-semibold uppercase tracking-wider hover:bg-rose-700 transition shadow-lg shadow-rose-200">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
           </svg>
           <span>Add to Google Calendar</span>
