@@ -422,7 +422,13 @@ function initAmbientAudio() {
   const audioElement = document.getElementById('wedding-audio');
   const statusText = document.getElementById('music-status-text');
 
+  const musicTooltip = document.getElementById('music-tooltip');
+
   if (!toggleBtn || !audioElement) return;
+
+  if (musicTooltip) {
+    musicTooltip.addEventListener('click', togglePlay);
+  }
 
   audioElement.volume = 0.45; // Gentle, relaxing volume level
   let isPlaying = false;
@@ -484,22 +490,33 @@ function initAmbientAudio() {
     });
   }
 
-  // 2. Play on ANY first user interaction across the window (click, tap, touch, scroll, keydown)
+  // 2. Play on user interaction across the window
+  // Note: Modern browsers (Chrome, Safari, iOS, Android) strictly disallow unmuted audio on pure 'scroll'
+  // events without a direct input gesture (click, pointerdown, touchstart, keydown).
+  // Therefore, we keep listening until an allowed gesture successfully starts playback.
+  const gestureEvents = ['pointerdown', 'touchstart', 'touchend', 'mousedown', 'keydown', 'click', 'scroll', 'wheel'];
+
   const triggerAudioOnGesture = () => {
-    if (!isPlaying) {
-      audioElement.play().then(() => {
-        isPlaying = true;
-        updateUI(true);
-      }).catch((e) => console.log('Autoplay pending user gesture:', e));
-    }
-    // Clean up event listeners once triggered
-    ['click', 'touchstart', 'touchend', 'scroll', 'keydown'].forEach(evt => {
-      window.removeEventListener(evt, triggerAudioOnGesture, { capture: true });
+    if (isPlaying) return;
+
+    audioElement.play().then(() => {
+      isPlaying = true;
+      updateUI(true);
+      // Remove all event listeners only after play has successfully started!
+      gestureEvents.forEach(evt => {
+        window.removeEventListener(evt, triggerAudioOnGesture, true);
+        document.removeEventListener(evt, triggerAudioOnGesture, true);
+      });
+    }).catch((e) => {
+      // If browser rejects (e.g. scroll without gesture), do not remove listeners yet!
+      // Keep listeners active so next tap/click/touch will start the music.
+      console.log('Autoplay waiting for valid user gesture (tap/click):', e?.message || e);
     });
   };
 
-  ['click', 'touchstart', 'touchend', 'scroll', 'keydown'].forEach(evt => {
-    window.addEventListener(evt, triggerAudioOnGesture, { once: true, capture: true, passive: true });
+  gestureEvents.forEach(evt => {
+    window.addEventListener(evt, triggerAudioOnGesture, { capture: true, passive: true });
+    document.addEventListener(evt, triggerAudioOnGesture, { capture: true, passive: true });
   });
 }
 
